@@ -964,7 +964,7 @@ function buildRequest(validBidRequests, bidderRequest, impressions, version) {
   // Use the siteId in the first bid request as the main siteId.
   siteID = validBidRequests[0].params.siteId;
   payload.s = siteID;
-  payload.v = version;
+
   if (version) {
     payload.v = version;
   }
@@ -1061,6 +1061,9 @@ function buildRequest(validBidRequests, bidderRequest, impressions, version) {
     if (!gpid && dfpAdUnitCode && divId) {
       gpid = `${dfpAdUnitCode}#${divId}`
     }
+
+    r.ext.ixdiag.gpid_exists = !gpid ? 0 : 1;
+
     if (impressionObjects.length && BANNER in impressionObjects[0]) {
       const { id, banner: { topframe } } = impressionObjects[0];
       const _bannerImpression = {
